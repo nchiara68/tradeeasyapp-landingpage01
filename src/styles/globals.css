@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@layer base {
+  :root {
+    --color-purple-950: #2e1065;
+    --color-purple-975: #1e0a4a;
+    
+    --animate-gradient-x: gradient-x 15s ease infinite;
+    --animate-float: float 6s ease-in-out infinite;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background: linear-gradient(135deg, var(--color-purple-950), theme('colors.slate.900'), theme('colors.purple.900'));
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: rgb(255 255 255 / 0.05);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgb(147 51 234 / 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .glass-card:hover {
+    border-color: rgb(147 51 234 / 0.4);
+  }
+  
+  .gradient-text {
+    background: linear-gradient(to right, theme('colors.purple.400'), theme('colors.cyan.400'));
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .gradient-button {
+    background: linear-gradient(to right, theme('colors.purple.600'), theme('colors.cyan.600'));
+    transition: all 0.3s ease;
+  }
+  
+  .gradient-button:hover {
+    background: linear-gradient(to right, theme('colors.purple.700'), theme('colors.cyan.700'));
+    transform: scale(1.05);
+  }
+}
