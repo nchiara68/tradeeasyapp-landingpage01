@@ -118,7 +118,7 @@ const TradeEasyLanding: React.FC = () => {
               <div className="flex justify-center mb-8">
                 <div className="logo-glow">
                   <img 
-    src="/src/assets/TradeEasyLogoWHITE.png" 
+    src="/public/TradeEasyLogoWHITE.png" 
     alt="Trade-Easy Logo" 
     className="h-24 w-auto"
   />
