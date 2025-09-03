@@ -1,4 +1,4 @@
-import TradeEasyLanding from './components/TradEasyLanding'
+import TradeEasyLanding from './components/TradeEasyLanding'
 
 function App() {
   return <TradeEasyLanding/>
