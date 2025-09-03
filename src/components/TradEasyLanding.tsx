@@ -14,7 +14,10 @@ import {
   Building2,
   Cpu,
   Globe,
-  Settings
+  Settings,
+  Menu,
+  X,
+  ExternalLink
 } from 'lucide-react';
 
 interface FAQItem {
@@ -27,6 +30,12 @@ const TradeEasyLanding: React.FC = () => {
   const [userType, setUserType] = useState<string>('Platform');
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+
+  const scrollToWaitlist = () => {
+    const ctaSection = document.querySelector('#cta');
+    ctaSection?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const handleSubmit = () => {
     if (!email) return;
@@ -106,23 +115,104 @@ const TradeEasyLanding: React.FC = () => {
         .logo-glow {
           filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5));
         }
+
+        .app-button {
+          position: relative;
+          background: rgba(6, 182, 212, 0.1);
+          border: 2px solid rgba(6, 182, 212, 0.3);
+          color: #06b6d4;
+          transition: all 0.3s ease;
+          overflow: hidden;
+        }
+
+        .app-button:hover {
+          background: rgba(6, 182, 212, 0.2);
+          border-color: rgba(6, 182, 212, 0.6);
+          color: white;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+        }
+
+        .app-button::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.2), transparent);
+          transition: left 0.5s;
+        }
+
+        .app-button:hover::before {
+          left: 100%;
+        }
+
+        .mobile-menu {
+          backdrop-filter: blur(20px);
+          background: rgba(30, 10, 74, 0.95);
+        }
       `}</style>
 
       <div className="min-h-screen bg-gradient-to-br from-purple-950 via-slate-900 to-purple-900">
+        {/* Navigation */}
+        <nav className="relative z-50 px-4 sm:px-6 lg:px-8 pt-6">
+          <div className="max-w-7xl mx-auto flex justify-between items-center">
+            
+            
+            
+
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden text-white p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden absolute top-full left-0 right-0 mobile-menu border-t border-purple-500/20 p-6">
+              <div className="flex flex-col gap-4">
+                <a href="#problem" className="text-gray-300 hover:text-white transition-colors py-2">Problem</a>
+                <a href="#solution" className="text-gray-300 hover:text-white transition-colors py-2">Solution</a>
+                <a href="#faq" className="text-gray-300 hover:text-white transition-colors py-2">FAQ</a>
+                <div className="flex flex-col gap-3 pt-4 border-t border-purple-500/20">
+                  <a
+                    href="https://www.toknar.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="app-button px-6 py-3 rounded-full font-semibold flex items-center justify-center gap-2"
+                  >
+                    <span className="relative z-10">Go to App</span>
+                    <ExternalLink size={16} className="relative z-10" />
+                  </a>
+                  <button 
+                    onClick={scrollToWaitlist}
+                    className="gradient-button px-6 py-3 rounded-full font-semibold"
+                  >
+                    Join Waitlist
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </nav>
+
         {/* Hero Section */}
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-cyan-600/20 backdrop-blur-sm"></div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
             <div className="text-center">
               {/* Logo Integration */}
               <div className="flex justify-center mb-8">
                 <div className="logo-glow">
                   <img 
-    src="/public/TradeEasyLogoWHITE.png" 
-    alt="Trade-Easy Logo" 
-    className="h-24 w-auto"
-  />
-                  
+                    src="/public/TradeEasyLogoWHITE.png" 
+                    alt="Trade-Easy Logo" 
+                    className="h-24 w-auto"
+                  />
                 </div>
               </div>
 
@@ -134,11 +224,11 @@ const TradeEasyLanding: React.FC = () => {
                 —Not Just Banks?
               </h1>
               
-              <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
                 Embedded, tokenized trade finance for non-bank platforms. Powered by AI.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
                 <div className="flex gap-2 glass-card rounded-full p-2">
                   <input
                     type="email"
@@ -154,6 +244,24 @@ const TradeEasyLanding: React.FC = () => {
                     Join Waitlist <ArrowRight size={20} />
                   </button>
                 </div>
+              </div>
+
+              {/* Secondary CTA */}
+              <div className="py-8 flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+                <p className="text-gray-400 text-sm">Already interested in trade finance?</p>
+                <a
+                  href="https://www.toknar.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative px-8 py-3 rounded-full border-2 border-cyan-400/30 text-cyan-400 hover:text-white font-semibold transition-all duration-300 overflow-hidden"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  <span className="relative flex items-center gap-2">
+                    <Globe size={18} />
+                    Explore Our Current Platform
+                    <ExternalLink className="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </span>
+                </a>
               </div>
               
               {isSubmitted && (
@@ -178,7 +286,7 @@ const TradeEasyLanding: React.FC = () => {
         </section>
 
         {/* Problem Section */}
-        <section className="py-24 bg-black/20">
+        <section id="problem" className="py-24 bg-black/20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
@@ -207,7 +315,7 @@ const TradeEasyLanding: React.FC = () => {
         </section>
 
         {/* Solution Section */}
-        <section className="py-24">
+        <section id="solution" className="py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
@@ -351,7 +459,7 @@ const TradeEasyLanding: React.FC = () => {
         </section>
 
         {/* Final CTA */}
-        <section className="py-24 bg-gradient-to-r from-purple-600/20 to-cyan-600/20">
+        <section id="cta" className="py-24 bg-gradient-to-r from-purple-600/20 to-cyan-600/20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
               Be First to Offer <span className="gradient-text">Embedded Trade Finance</span>
@@ -399,7 +507,7 @@ const TradeEasyLanding: React.FC = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-24">
+        <section id="faq" className="py-24">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-16">
               Frequently Asked Questions
@@ -434,6 +542,14 @@ const TradeEasyLanding: React.FC = () => {
         <footer className="py-16 bg-black/40 border-t border-purple-500/20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <img 
+                  src="/public/TradeEasyLogoWHITE.png" 
+                  alt="Trade-Easy" 
+                  className="h-8 w-auto logo-glow"
+                />
+                <span className="text-xl font-bold text-white">Trade-Easy</span>
+              </div>
               <p className="text-gray-400 max-w-3xl mx-auto">
                 Trade-Easy is developing a lightweight embedded trade finance solution using tokenization and AI to democratize access to capital for SMEs worldwide.
               </p>
