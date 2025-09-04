@@ -250,7 +250,7 @@ const TradeEasyLanding: React.FC = () => {
               <div className="py-8 flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
                 <p className="text-gray-400 text-sm">Already interested in trade finance?</p>
                 <a
-                  href="https://www.toknar.io/"
+                  href="https://b01.tradeeasyapp.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative px-8 py-3 rounded-full border-2 border-cyan-400/30 text-cyan-400 hover:text-white font-semibold transition-all duration-300 overflow-hidden"
