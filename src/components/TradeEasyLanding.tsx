@@ -548,7 +548,7 @@ const TradeEasyLanding: React.FC = () => {
                   alt="Trade-Easy" 
                   className="h-8 w-auto logo-glow"
                 />
-                <span className="text-xl font-bold text-white">Trade-Easy</span>
+                <span className="text-xl font-bold text-white"></span>
               </div>
               <p className="text-gray-400 max-w-3xl mx-auto">
                 Trade-Easy is developing a lightweight embedded trade finance solution using tokenization and AI to democratize access to capital for SMEs worldwide.
