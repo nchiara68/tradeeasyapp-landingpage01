@@ -60,7 +60,7 @@ const TradeEasyLanding: React.FC = () => {
     },
     {
       question: "Is this regulated?",
-      answer: "Yes, we're working with regulatory bodies to ensure full compliance while maintaining the flexibility that makes embedded finance powerful."
+      answer: "Our funders are regulated. We're working with regulatory bodies to ensure full compliance while maintaining the flexibility that makes embedded finance powerful."
     },
     {
       question: "How much will it cost?",
